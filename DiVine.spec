@@ -1,16 +1,17 @@
 Summary:	DirectFB Virtual Input extension
 Summary(pl.UTF-8):	Rozszerzenie DirectFB o wirtualne wejście
 Name:		DiVine
-Version:	0.4.0
+Version:	1.6.3
 Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://www.directfb.org/downloads/Extras/%{name}-%{version}.tar.gz
-# Source0-md5:	6c1147d186e421f707afd48403749364
+# Source0-md5:	a5a08ef9197bf32c8bc6b030f96f2103
+Patch0:		%{name}-missing.patch
 URL:		http://www.directfb.org/
-BuildRequires:	DirectFB-devel >= 1:1.2.0
+BuildRequires:	DirectFB-devel >= 1:1.6.0
 BuildRequires:	pkgconfig >= 1:0.9
-%requires_eq	DirectFB
+Requires:	DirectFB >= 1:1.6.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -22,7 +23,6 @@ DiVine consists of:
 - a tool called "spooky" to generate input events using a simple
   script featuring button or motion events, linear or circular
   automated motion and delays.
-
 
 %description -l pl.UTF-8
 DiVine składa się z:
@@ -39,7 +39,7 @@ Summary:	Header files for divine library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki divine
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	DirectFB-devel >= 1:1.0.0
+Requires:	DirectFB-devel >= 1:1.6.0
 
 %description devel
 Header files for divine library.
@@ -61,6 +61,7 @@ Statyczna biblioteka divine.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %configure \
@@ -83,9 +84,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README
 %attr(755,root,root) %{_bindir}/spooky
-%attr(755,root,root) %{_libdir}/libdivine-0.4.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libdivine-0.4.so.0
-%attr(755,root,root) %{_libdir}/directfb-1.2-0/inputdrivers/libdirectfb_divine.so
+%attr(755,root,root) %{_libdir}/libdivine-1.6.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libdivine-1.6.so.0
+%attr(755,root,root) %{_libdir}/directfb-1.6-0/inputdrivers/libdirectfb_divine.so
+%dir %{_libdir}/directfb-1.6-0/interfaces/IDiVine
+%attr(755,root,root) %{_libdir}/directfb-1.6-0/interfaces/IDiVine/libidivine_dispatcher.so
+%attr(755,root,root) %{_libdir}/directfb-1.6-0/interfaces/IDiVine/libidivine_requestor.so
 
 %files devel
 %defattr(644,root,root,755)
@@ -98,4 +102,6 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libdivine.a
-%{_libdir}/directfb-1.2-0/inputdrivers/libdirectfb_divine.[aol]*
+%{_libdir}/directfb-1.6-0/inputdrivers/libdirectfb_divine.[aol]*
+%{_libdir}/directfb-1.6-0/interfaces/IDiVine/libidivine_dispatcher.[aol]*
+%{_libdir}/directfb-1.6-0/interfaces/IDiVine/libidivine_requestor.[aol]*

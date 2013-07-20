@@ -1,8 +1,9 @@
+# NOTE: for version >= 1.7.0 see DirectFB.spec
 Summary:	DirectFB Virtual Input extension
 Summary(pl.UTF-8):	Rozszerzenie DirectFB o wirtualne wejście
 Name:		DiVine
 Version:	1.6.3
-Release:	1
+Release:	1.1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://www.directfb.org/downloads/Extras/%{name}-%{version}.tar.gz
